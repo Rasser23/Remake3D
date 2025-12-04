@@ -5,6 +5,12 @@ public class Player_Movement : MonoBehaviour
 {
 
     [Header("Movement")]
+
+    [Header("Ground Check")]
+    public float playerHeight;
+    public LayerMask whatIsGround;
+    bool grounded;
+    public float groundDrag;
     public float moveSpeed;
     public Transform orientation;
 
@@ -12,7 +18,7 @@ public class Player_Movement : MonoBehaviour
     float verticalInput;
 
     Vector3 moveDirection;
-    Rigidbody rb;
+    [SerializeField] private Rigidbody rb;
 
     private void Start()
     {
@@ -21,7 +27,15 @@ public class Player_Movement : MonoBehaviour
     }
     private void Update()
     {
+        
+        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
+
         MyInput();
+
+        if(grounded)
+            rb.linearDamping = groundDrag;
+        else 
+            rb.linearDamping = 0f;
     }
 
     private void FixedUpdate()
