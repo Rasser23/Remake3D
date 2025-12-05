@@ -7,12 +7,18 @@ public class Player_Movement : MonoBehaviour
     [Header("Movement")]
 
     [Header("Ground Check")]
+
+    [Header("Jump")]
+
+    [Header("Air Control")]
     public float playerHeight;
     public LayerMask whatIsGround;
-    bool grounded;
+    public float jumpForce = 7f;
     public float groundDrag;
     public float moveSpeed;
+    public float airMultiplier = 0.3f;
     public Transform orientation;
+    bool grounded;
 
     float horizontalInput;
     float verticalInput;
@@ -31,6 +37,11 @@ public class Player_Movement : MonoBehaviour
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
 
         MyInput();
+
+        if (Input.GetKeyDown(KeyCode.Space) && grounded)
+        {
+            Jump();
+        }
 
         if(grounded)
             rb.linearDamping = groundDrag;
@@ -53,7 +64,16 @@ public class Player_Movement : MonoBehaviour
     {
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
+        float multiplier = grounded ? 1f : airMultiplier;
+
         rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+    }
+
+    private void Jump()
+    {
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+
+        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
     
 }
