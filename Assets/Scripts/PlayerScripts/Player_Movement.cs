@@ -9,17 +9,14 @@ public class Player_Movement : MonoBehaviour
     [Header("Ground Check")]
 
     [Header("Jump")]
-
-    [Header("Air Control")]
     public float playerHeight;
     public LayerMask whatIsGround;
     public float jumpForce = 7f;
     public float groundDrag;
     public float moveSpeed;
-    public float airMultiplier = 0.3f;
     public Transform orientation;
-    bool grounded;
 
+    bool grounded;
     float horizontalInput;
     float verticalInput;
 
@@ -63,8 +60,6 @@ public class Player_Movement : MonoBehaviour
     private void MovePlayer()
     {
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
-
-        float multiplier = grounded ? 1f : airMultiplier;
 
         rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
     }
