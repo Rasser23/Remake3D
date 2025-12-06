@@ -20,6 +20,8 @@ public class Collectible : MonoBehaviour
         {
             if(pickupText != null)
                 pickupText.SetActive(false);
+
+            FindObjectOfType<GameManager>().AddCollectible();
             
             Destroy(gameObject);
         }
