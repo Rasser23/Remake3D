@@ -7,12 +7,12 @@ public class WinScript : MonoBehaviour
 
     public void Start()
     {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None; // remove the cursor lock state 
+        Cursor.visible = true; // make the cursor visible 
     }
     public void RestartGame()
     {
-        SceneManager.LoadScene("StartScene");
+        SceneManager.LoadScene("StartScene"); // load the StartScene
     }
 
 

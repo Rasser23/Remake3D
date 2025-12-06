@@ -5,12 +5,12 @@ public class StartScript : MonoBehaviour
 {
    public void StartGame()
     {
-        SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene("MainScene"); // load the MainScene
     }
 
     public void QuitGame()
     {
-        Application.Quit();
+        Application.Quit(); // quit the application 
         Debug.Log("Quit Game");
     }
 }
